@@ -95,6 +95,61 @@ bash start.sh
 
 Keep Termux running in the background while using the app.
 
+## Updating to Latest Version
+
+When updates are available, you can update your installation easily.
+
+### Using the Update Script (Recommended)
+
+```bash
+cd ElevenLabsUI
+bash update.sh
+```
+
+The script will automatically:
+- Pull latest changes from GitHub
+- Update backend dependencies
+- Update frontend dependencies
+- Rebuild the frontend
+
+### Manual Update
+
+```bash
+cd ElevenLabsUI
+
+# Pull latest changes
+git pull origin main
+
+# Update backend
+cd backend
+npm install
+cd ..
+
+# Update and rebuild frontend
+cd elevenlabsui
+npm install
+npm run build
+cd ..
+
+# Restart server
+bash start.sh
+```
+
+### If You Have Local Modifications
+
+If you've made changes to the code and git pull fails:
+
+```bash
+# Save your changes
+git stash
+
+# Update
+bash update.sh
+
+# Reapply your changes (optional)
+git stash pop
+```
+
 ## How to Use
 
 1. Start the server (see above)
