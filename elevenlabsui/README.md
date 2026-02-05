@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# ElevenLabs TTS UI - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the React-based user interface for the ElevenLabs text-to-speech application.
 
-## Available Scripts
+For installation and setup instructions, see the main README.md in the project root.
 
-In the project directory, you can run:
+## Interface Overview
 
-### `npm start`
+The UI provides a clean, minimal interface for generating speech with ElevenLabs API.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### API Key Section
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Located at the top of the interface:
 
-### `npm test`
+- API Key Input: Enter your ElevenLabs API key
+- Show/Hide Button: Toggle visibility of your API key
+- Clear Button: Remove stored API key from browser
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Your API key is stored locally in your browser and only sent directly to ElevenLabs API.
 
-### `npm run build`
+### Text Input
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Large text area where you enter the text you want to convert to speech. Supports:
+- Plain text
+- Emotion commands for v3 model (see below)
+- Up to model-specific character limits
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Model Selector
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Dropdown menu to choose the ElevenLabs model:
 
-### `npm run eject`
+- eleven_v3: Most expressive, 70+ languages, supports emotions
+- eleven_turbo_v2_5: Fast, 32 languages, low latency
+- eleven_flash_v2_5: Ultra fast, 32 languages
+- eleven_multilingual_v2: 29 languages, emotional
+- And more options
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Voice Selector
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Dropdown menu showing all your available voices:
+- Pre-made ElevenLabs voices
+- Your cloned voices
+- Automatically populated from your account
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Generate Button
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Click to convert your text to speech. Shows "Generating..." while processing.
 
-## Learn More
+### Audio Player
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Appears below the generate button after successful generation. Includes standard controls:
+- Play/Pause
+- Volume
+- Progress bar
+- Download option
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## How to Use
 
-### Code Splitting
+1. Enter your ElevenLabs API key in the top field
+2. Type or paste your text in the text area
+3. Select a voice from the dropdown
+4. Select a model (eleven_v3 recommended for best quality)
+5. Click Generate
+6. Audio player appears with your generated speech
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Emotion Commands
 
-### Analyzing the Bundle Size
+When using the eleven_v3 model, you can add emotions using brackets:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- [laugh] - Laughter
+- [sigh] - Sighing
+- [gasp] - Gasping
+- [whisper] - Whispering
+- [chuckle] - Light laughter
+- And more
 
-### Making a Progressive Web App
+Example: "Hello [laugh] this is incredible!"
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Note: Emotion commands only work with the eleven_v3 model.
 
-### Advanced Configuration
+## Tips
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Your API key and selected preferences are saved in browser local storage
+- Clear your API key when using shared computers
+- Different models have different character limits
+- Voice quality varies by model - experiment to find what works best
+- The Show/Hide button helps keep your API key private when sharing screen
