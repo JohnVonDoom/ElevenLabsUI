@@ -7,13 +7,13 @@ A self-hosted text-to-speech interface for ElevenLabs API. Run locally on your d
 - 100% local and private - your API key never leaves your device
 - Access all your ElevenLabs voices (pre-made and cloned)
 - Support for all ElevenLabs models (v3, Turbo, Flash, etc.)
-- Clean, minimal interface
+- Clean, modern Bootstrap-based interface
 - Works on desktop and Android (via Termux)
 - Open source and fully transparent
 
 ## Security and Privacy
 
-Your API key is stored locally in your browser only. Direct connection to ElevenLabs API with no intermediary servers. No tracking, no analytics, no telemetry.
+Your API key is stored locally in your browser's localStorage. Requests are proxied through your own local server — no third-party servers are involved. No tracking, no analytics, no telemetry.
 
 ## Requirements
 
@@ -73,7 +73,7 @@ pkg install nodejs git
 termux-setup-storage
 
 # Clone this repository
-git clone <your-repo-url>
+git clone https://github.com/JohnVonDoom/ElevenLabsUI.git
 cd ElevenLabsUI
 
 # Install dependencies
@@ -155,9 +155,9 @@ git stash pop
 1. Start the server (see above)
 2. Open browser to http://localhost:3001
 3. Enter your ElevenLabs API key at the top of the page
-4. Select a voice from the dropdown
+4. Type your text in the text area
 5. Choose a model (eleven_v3 recommended)
-6. Type your text
+6. Select a voice from the dropdown
 7. Click Generate to create speech
 
 ### Model Options
@@ -177,17 +177,29 @@ Example: "Hello [laugh] this is amazing!"
 
 ```
 ElevenLabsUI/
-├── backend/              Express server
-│   ├── server.js        Main server file
+├── backend/                   Express server
+│   ├── server.js             Main server file
 │   ├── package.json
-│   └── .env            Your API key (for dev)
-├── elevenlabsui/        React frontend
+│   └── .env                  Optional API key fallback
+├── elevenlabsui/              React frontend
 │   ├── src/
+│   │   ├── App.js            Main app component
+│   │   ├── App.css           Custom styles
+│   │   ├── index.js          Entry point
+│   │   └── components/
+│   │       ├── ApiKeyInput.js    API key input with show/hide
+│   │       ├── TextInput.js      Text area for input
+│   │       ├── ModelSelect.js    Model dropdown selector
+│   │       ├── VoiceSelect.js    Voice dropdown selector
+│   │       ├── GenerateButton.js Generate button with spinner
+│   │       ├── ErrorAlert.js     Error alert banner
+│   │       └── AudioPlayer.js    Audio playback player
 │   ├── public/
-│   ├── build/          Built frontend
+│   ├── build/                Built frontend (served by backend)
 │   └── package.json
-├── install.sh           Setup script
-├── start.sh            Start server script
+├── install.sh                Setup script
+├── start.sh                  Start server script
+├── update.sh                 Update script
 └── README.md
 ```
 
@@ -268,4 +280,4 @@ This is an unofficial client for ElevenLabs. You need your own ElevenLabs API ke
 
 ## Credits
 
-Built with React and Express. Uses ElevenLabs API. Designed for privacy and self-hosting.
+Built with React, Bootstrap, and Express. Uses ElevenLabs API. Designed for privacy and self-hosting.

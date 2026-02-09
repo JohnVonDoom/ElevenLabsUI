@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import ApiKeyInput from './components/ApiKeyInput';
+import TextInput from './components/TextInput';
+import ModelSelect from './components/ModelSelect';
+import VoiceSelect from './components/VoiceSelect';
+import GenerateButton from './components/GenerateButton';
+import ErrorAlert from './components/ErrorAlert';
+import AudioPlayer from './components/AudioPlayer';
 
 function App() {
   const [apiKey, setApiKey] = useState(localStorage.getItem('elevenlabs_api_key') || '');
@@ -26,12 +33,12 @@ function App() {
   useEffect(() => {
     const fetchVoices = async () => {
       if (!apiKey) return;
-      
+
       try {
         const response = await fetch('/api/voices', {
           headers: {
-            'x-api-key': apiKey
-          }
+            'x-api-key': apiKey,
+          },
         });
         const voicesData = await response.json();
         setVoices(voicesData);
@@ -96,78 +103,42 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Text to Speech</h1>
-      
-      <div className="api-key-section">
-        <div className="api-key-input-group">
-          <input
-            type={showApiKey ? 'text' : 'password'}
-            value={apiKey}
-            onChange={handleApiKeyChange}
-            placeholder="Enter your ElevenLabs API key"
-            className="api-key-input"
-          />
-          <button 
-            type="button"
-            onClick={() => setShowApiKey(!showApiKey)}
-            className="toggle-key-btn"
-          >
-            {showApiKey ? 'Hide' : 'Show'}
-          </button>
-          <button 
-            type="button"
-            onClick={clearApiKey}
-            className="clear-key-btn"
-          >
-            🗑️ Clear
-          </button>
+    <div className="container py-5">
+      <div className="row justify-content-center">
+        <div className="col-lg-6 col-md-8">
+          <div className="card shadow">
+            <div className="card-body p-4">
+              <h1 className="card-title text-center mb-4 fw-semibold">
+                <i className="bi bi-soundwave me-2"></i>Text to Speech
+              </h1>
+
+              <ApiKeyInput
+                apiKey={apiKey}
+                showApiKey={showApiKey}
+                onApiKeyChange={handleApiKeyChange}
+                onToggleShow={() => setShowApiKey(!showApiKey)}
+                onClear={clearApiKey}
+              />
+
+              <TextInput value={text} onChange={setText} />
+
+              <ModelSelect value={model} onChange={setModel} />
+
+              <VoiceSelect
+                voices={voices}
+                value={selectedVoice}
+                onChange={setSelectedVoice}
+              />
+
+              <GenerateButton loading={loading} onClick={generateSpeech} />
+
+              <ErrorAlert message={error} />
+
+              <AudioPlayer audioUrl={audioUrl} />
+            </div>
+          </div>
         </div>
-        <p className="security-notice">
-          🔒 Your API key is stored locally on your computer and only sent to ElevenLabs' official API
-        </p>
       </div>
-      
-      <textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Enter text here..."
-        rows={6}
-      />
-
-      <select value={model} onChange={(e) => setModel(e.target.value)}>
-        <option value="eleven_v3">eleven_v3</option>
-        <option value="eleven_flash_v2_5">eleven_flash_v2_5</option>
-        <option value="eleven_flash_v2">eleven_flash_v2</option>
-        <option value="eleven_turbo_v2_5">eleven_turbo_v2_5</option>
-        <option value="eleven_turbo_v2">eleven_turbo_v2</option>
-        <option value="eleven_multilingual_v2">eleven_multilingual_v2</option>
-        <option value="eleven_multilingual_v1">eleven_multilingual_v1</option>
-        <option value="eleven_english_sts_v2">eleven_english_sts_v2</option>
-        <option value="eleven_english_sts_v1">eleven_english_sts_v1</option>
-      </select>
-
-      <select value={selectedVoice} onChange={(e) => setSelectedVoice(e.target.value)}>
-        {voices.length === 0 ? (
-          <option>Loading voices...</option>
-        ) : (
-          voices.map(voice => (
-            <option key={voice.voice_id} value={voice.voice_id}>
-              {voice.name}
-            </option>
-          ))
-        )}
-      </select>
-
-      <button onClick={generateSpeech} disabled={loading}>
-        {loading ? 'Generating...' : 'Generate'}
-      </button>
-
-      {error && <div className="error">{error}</div>}
-
-      {audioUrl && (
-        <audio controls src={audioUrl} autoPlay />
-      )}
     </div>
   );
 }
