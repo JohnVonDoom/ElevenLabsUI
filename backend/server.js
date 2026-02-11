@@ -13,10 +13,6 @@ app.use(express.json());
 // Serve React frontend static files
 app.use(express.static(path.join(__dirname, '../elevenlabsui/build')));
 
-const client = new ElevenLabsClient({
-  apiKey: process.env.ELEVENLABS_API_KEY
-});
-
 app.get('/api/voices', async (req, res) => {
   try {
     const apiKey = req.headers['x-api-key'] || process.env.ELEVENLABS_API_KEY;
