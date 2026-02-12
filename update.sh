@@ -20,7 +20,7 @@ if [ ! -d ".git" ]; then
 fi
 
 echo "Pulling latest changes from GitHub..."
-if git pull origin main; then
+if git pull origin master; then
     echo "Successfully pulled latest changes."
 else
     echo "ERROR: Failed to pull changes."
