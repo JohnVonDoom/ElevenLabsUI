@@ -8,15 +8,41 @@ For installation and setup instructions, see the main README.md in the project r
 
 The UI provides a clean, minimal interface for generating speech with ElevenLabs API.
 
+### API Profile Section
+
+Located near the top of the interface:
+
+- Profile Selector: Switch between saved ElevenLabs account profiles
+- New Button: Opens a Bootstrap modal to create a profile
+- Delete Button: Removes the selected profile (with confirmation)
+
+### Create Profile Modal
+
+The New button opens a Bootstrap modal form with:
+
+- Profile Name (required)
+- ElevenLabs API Key (required)
+
+Basic validation runs on submit and blocks creation until all required fields are filled.
+
 ### API Key Section
 
-Located at the top of the interface:
+Located below profile controls:
 
-- API Key Input: Enter your ElevenLabs API key
+- API Key Input: Enter/update the API key for the selected profile
 - Show/Hide Button: Toggle visibility of your API key
-- Clear Button: Remove stored API key from browser
+- Clear Button: Remove API key from the selected profile
 
-Your API key is stored locally in your browser and only sent directly to ElevenLabs API.
+Profile data and API keys are stored locally in your browser. API requests are sent to the local backend (`/api/*`), which then calls ElevenLabs.
+
+### TTS Guide
+
+A dedicated **TTS Guide** button opens a modal with:
+
+- Model overview
+- Best-practice tips for better generations
+- Input normalization examples
+- Links to official ElevenLabs documentation
 
 ### Text Input
 
@@ -56,12 +82,13 @@ Appears below the generate button after successful generation. Includes standard
 
 ## How to Use
 
-1. Enter your ElevenLabs API key in the top field
-2. Type or paste your text in the text area
-3. Select a voice from the dropdown
-4. Select a model (eleven_v3 recommended for best quality)
-5. Click Generate
-6. Audio player appears with your generated speech
+1. Create or select an API profile
+2. Enter/update the API key for that profile
+3. Type or paste your text in the text area
+4. Select a voice from the dropdown
+5. Select a model (eleven_v3 recommended for best quality)
+6. Click Generate
+7. Audio player appears with your generated speech
 
 ## Emotion Commands
 
@@ -80,7 +107,7 @@ Note: Emotion commands only work with the eleven_v3 model.
 
 ## Tips
 
-- Your API key and selected preferences are saved in browser local storage
+- Your API profiles and API keys are saved in browser localStorage
 - Clear your API key when using shared computers
 - Different models have different character limits
 - Voice quality varies by model - experiment to find what works best

@@ -118,7 +118,7 @@ The script will automatically:
 cd ElevenLabsUI
 
 # Pull latest changes
-git pull origin main
+git pull origin master
 
 # Update backend
 cd backend
@@ -154,11 +154,12 @@ git stash pop
 
 1. Start the server (see above)
 2. Open browser to http://localhost:3001
-3. Enter your ElevenLabs API key at the top of the page
-4. Type your text in the text area
-5. Choose a model (eleven_v3 recommended)
-6. Select a voice from the dropdown
-7. Click Generate to create speech
+3. Create or select an API profile at the top of the page
+4. Enter/update the API key for the selected profile
+5. Type your text in the text area
+6. Choose a model (eleven_v3 recommended)
+7. Select a voice from the dropdown
+8. Click Generate to create speech
 
 ### Model Options
 
@@ -193,7 +194,9 @@ ElevenLabsUI/
 │   │       ├── VoiceSelect.js    Voice dropdown selector
 │   │       ├── GenerateButton.js Generate button with spinner
 │   │       ├── ErrorAlert.js     Error alert banner
-│   │       └── AudioPlayer.js    Audio playback player
+│   │       ├── AudioPlayer.js    Audio playback player
+│   │       ├── TTSGuideModal.js  TTS models/tips guide modal
+│   │       └── CreateProfileModal.js Profile creation modal with validation
 │   ├── public/
 │   ├── build/                Built frontend (served by backend)
 │   └── package.json
