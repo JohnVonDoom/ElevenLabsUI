@@ -7,6 +7,7 @@ import VoiceSelect from './components/VoiceSelect';
 import GenerateButton from './components/GenerateButton';
 import ErrorAlert from './components/ErrorAlert';
 import AudioPlayer from './components/AudioPlayer';
+import TTSGuideModal from './components/TTSGuideModal';
 
 function App() {
   const [apiKey, setApiKey] = useState(localStorage.getItem('elevenlabs_api_key') || '');
@@ -18,6 +19,7 @@ function App() {
   const [audioUrl, setAudioUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showGuide, setShowGuide] = useState(false);
 
   const handleApiKeyChange = (e) => {
     const key = e.target.value;
@@ -112,6 +114,16 @@ function App() {
                 <i className="bi bi-soundwave me-2"></i>Text to Speech
               </h1>
 
+              <div className="d-grid mb-3">
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary"
+                  onClick={() => setShowGuide(true)}
+                >
+                  <i className="bi bi-journal-text me-2"></i>TTS Guide
+                </button>
+              </div>
+
               <ApiKeyInput
                 apiKey={apiKey}
                 showApiKey={showApiKey}
@@ -139,6 +151,8 @@ function App() {
           </div>
         </div>
       </div>
+
+      <TTSGuideModal show={showGuide} onClose={() => setShowGuide(false)} />
     </div>
   );
 }
